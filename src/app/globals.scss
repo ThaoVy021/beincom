@@ -5,44 +5,48 @@
 @import "@radix-ui/colors/black-alpha.css";
 @import "@radix-ui/colors/mauve.css";
 @import "@radix-ui/colors/violet.css";
+@import "@radix-ui/themes/styles.css";
 
 $mainColor: #00127f;
 $blueTextColor: #2c4fd1;
 $whiteColor: #fff;
-$mainBackgroundColor: #f2f3fb;
+$backgroundColorGray: #eaeaea;
+
+$textColorGray: #8e8d8d;
 
 :root {
   --bic-font-size-xs: 12px;
   --bic-font-size-sm: 14px;
   --bic-font-size-2xl: 24px;
   --bic-blue-50: rgb(9, 97, 237);
-}
+  --bic-purple-2: rgb(244, 239, 251);
+  --bic-neutral-2: rgb(236, 238, 246);
+  --bic-purple-50: rgb(111, 50, 187);
+  --bic-orange-30: rgb(203, 93, 0);
+  --bic-green-50: rgb(7, 167, 33);
 
-/* :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --global-header-height: 3.75rem;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.05),
+    0px 1px 2px -1px rgba(0, 0, 0, 0.1);
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-} */
 
 body {
   margin: 0 auto;
-  /* color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb)); */
+  overscroll-behavior: none;
 
-  /* reset */
+  .layout_box {
+    padding: 0 3rem;
+    @media (max-width: 768px) {
+      padding: 0 1rem;
+      display: block;
+    }
+    @media (max-width: 445px) {
+      padding: 5px;
+    }
+  }
+
   input,
   textarea,
   button {
@@ -94,7 +98,7 @@ body {
 
   .Input {
     padding: 0 10px;
-    height: 2.5rem;
+    height: 2rem;
     line-height: 1;
   }
 
@@ -123,10 +127,196 @@ body {
   .Button:hover {
     background-color: var(--mauve-3);
   }
+
+  .DropdownMenuContent,
+  .DropdownMenuSubContent {
+    min-width: 220px;
+    background-color: $whiteColor;
+    border-radius: 6px;
+    padding: 5px;
+    box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35),
+      0px 10px 20px -15px rgba(22, 23, 24, 0.2);
+    animation-duration: 400ms;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+  }
+  .DropdownMenuContent[data-side="top"],
+  .DropdownMenuSubContent[data-side="top"] {
+    animation-name: slideDownAndFade;
+  }
+  .DropdownMenuContent[data-side="right"],
+  .DropdownMenuSubContent[data-side="right"] {
+    animation-name: slideLeftAndFade;
+  }
+  .DropdownMenuContent[data-side="bottom"],
+  .DropdownMenuSubContent[data-side="bottom"] {
+    animation-name: slideUpAndFade;
+  }
+  .DropdownMenuContent[data-side="left"],
+  .DropdownMenuSubContent[data-side="left"] {
+    animation-name: slideRightAndFade;
+  }
+
+  .DropdownMenuItem,
+  .DropdownMenuCheckboxItem,
+  .DropdownMenuRadioItem,
+  .DropdownMenuSubTrigger {
+    font-size: 13px;
+    line-height: 1;
+    color: var(--violet-11);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    height: 25px;
+    padding: 0 5px;
+    position: relative;
+    padding-left: 25px;
+    user-select: none;
+    outline: none;
+    background-color: var(--bic-neutral-2);
+  }
+  .DropdownMenuSubTrigger[data-state="open"] {
+    background-color: var(--violet-4);
+    color: var(--violet-11);
+  }
+  .DropdownMenuItem[data-disabled],
+  .DropdownMenuCheckboxItem[data-disabled],
+  .DropdownMenuRadioItem[data-disabled],
+  .DropdownMenuSubTrigger[data-disabled] {
+    color: var(--mauve-8);
+    pointer-events: none;
+  }
+  .DropdownMenuItem[data-highlighted],
+  .DropdownMenuCheckboxItem[data-highlighted],
+  .DropdownMenuRadioItem[data-highlighted],
+  .DropdownMenuSubTrigger[data-highlighted] {
+    background-color: var(--violet-9);
+    color: var(--violet-1);
+  }
+
+  .DropdownMenuLabel {
+    padding-left: 25px;
+    font-size: 12px;
+    line-height: 25px;
+    color: var(--mauve-11);
+  }
+
+  .DropdownMenuSeparator {
+    height: 1px;
+    background-color: var(--violet-6);
+    margin: 5px;
+  }
+
+  .DropdownMenuItemIndicator {
+    position: absolute;
+    left: 0;
+    width: 25px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .DropdownMenuArrow {
+    fill: var(--bic-neutral-2);
+  }
+
+  .RightSlot {
+    margin-left: auto;
+    padding-left: 20px;
+    color: var(--mauve-11);
+  }
+  [data-highlighted] > .RightSlot {
+    color: white;
+  }
+  [data-disabled] .RightSlot {
+    color: var(--mauve-8);
+  }
+
+  @keyframes slideUpAndFade {
+    from {
+      opacity: 0;
+      transform: translateY(2px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideRightAndFade {
+    from {
+      opacity: 0;
+      transform: translateX(-2px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideDownAndFade {
+    from {
+      opacity: 0;
+      transform: translateY(-2px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideLeftAndFade {
+    from {
+      opacity: 0;
+      transform: translateX(2px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 }
 
-/* @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}  */
+.text-blue-50 {
+  color: var(--bic-blue-50);
+}
+
+.text-purple-50 {
+  color: var(--bic-purple-50);
+}
+
+.text-orange-30 {
+  color: var(--bic-orange-30);
+}
+
+.text-green-50 {
+  color: var(--bic-green-50);
+}
+
+.text-gray-50 {
+  color: $textColorGray;
+}
+
+.bg-purple-2 {
+  background-color: var(--bic-purple-2);
+}
+
+.bg-neutral-2 {
+  background-color: var(--bic-neutral-2);
+}
+
+.hover\:bg-neutral-2:hover {
+  background-color: var(--bic-neutral-2);
+}
+
+.max-w-layout-side-pane {
+  max-width: 320px;
+}
+
+.min-w-layout-side-pane {
+  min-width: 288px;
+}
+
+aside {
+  top: 75px;
+}

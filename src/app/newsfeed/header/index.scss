@@ -1,0 +1,15 @@
+@import "../../globals.scss";
+
+.header {
+  width: 100%;
+  height: var(--global-header-height);
+  column-gap: 3rem;
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+    var(--tw-shadow);
+  background-color: $whiteColor;
+
+  @media (max-width: 768px) {
+    display: block;
+    height: 140px;
+  }
+}

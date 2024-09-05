@@ -1,0 +1,11 @@
+.information {
+  column-gap: 0.75rem;
+
+  @media (max-width: 768px) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 16px;
+    margin-right: 16px;
+  }
+}

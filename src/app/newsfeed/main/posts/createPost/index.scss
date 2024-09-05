@@ -1,0 +1,15 @@
+.createPost {
+  @media (max-width: 768px) {
+    display: block;
+
+    :nth-child(n) {
+      margin-bottom: 2px;
+    }
+  }
+}
+
+.welcome {
+  @media (max-width: 768px) {
+    display: block;
+  }
+}

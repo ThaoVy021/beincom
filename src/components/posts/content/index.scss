@@ -1,0 +1,16 @@
+.contentPosts {
+  @media (max-width: 768px) {
+    display: block;
+    &:nth-child(1) {
+      margin-left: 20px;
+      margin-top: 10px;
+    }
+  }
+
+  .reactions {
+    @media (max-width: 768px) {
+      margin-left: 20px;
+      margin-top: 10px;
+    }
+  }
+}

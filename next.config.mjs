@@ -8,18 +8,11 @@ const nextConfig = {
 
     return config;
   },
-  async redirects() {
+  redirects: () => {
     return [
-      // Basic redirect
       {
-        source: "/login",
-        destination: "/",
-        permanent: true,
-      },
-      // Wildcard path matching
-      {
-        source: "/blog/:slug",
-        destination: "/news/:slug",
+        source: "/",
+        destination: "/login",
         permanent: true,
       },
     ];
